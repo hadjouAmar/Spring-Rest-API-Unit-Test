@@ -10,34 +10,41 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Cloner le code depuis GitHub
-                git url: "$GIT_REPO", branch: 'main' // Remplace 'main' par le nom de ta branche
+                git url: "$GIT_REPO", branch: 'master' // Remplace 'main' par le nom de ta branche
             }
         }
         
         stage('Install Dependencies') {
             steps {
                 // Installer les dépendances (exemple avec npm pour un projet Node.js)
-                sh 'npm install'
+                sh 'mvn clean install -DskipTests'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                // Installer les dépendances avec Maven
+                sh 'mvn clean install -DskipTests'
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Exécuter les tests (ici avec npm)
-                sh 'npm test'
+                // Exécuter les tests avec Maven
+                sh 'mvn test'
             }
         }
 
         stage('Build') {
             steps {
-                // Construire le projet (par exemple, avec npm)
-                sh 'npm run build'
+                // Construire le projet avec Maven
+                sh 'mvn package'
             }
         }
-        
+
         stage('Deploy') {
             steps {
-                // Ici, tu peux ajouter une étape de déploiement si tu veux
+                // Étape de déploiement (optionnelle)
                 echo 'Déploiement de l\'application'
             }
         }
@@ -45,15 +52,15 @@ pipeline {
 
     post {
         always {
-            // Actions à faire après l'exécution du pipeline (ex: nettoyage, notification)
+            // Action après l'exécution du pipeline (ex: nettoyage, notification)
             echo 'Pipeline terminé'
         }
         success {
-            // Action en cas de succès (par exemple, envoyer une notification)
+            // Action en cas de succès
             echo 'Pipeline réussi'
         }
         failure {
-            // Action en cas d'échec (par exemple, envoyer une alerte)
+            // Action en cas d'échec
             echo 'Pipeline échoué'
         }
     }
