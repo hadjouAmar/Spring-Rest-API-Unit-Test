@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         // Tu peux définir des variables d'environnement ici
-        GIT_REPO = 'https://github.com/ton-utilisateur/ton-projet.git'
+        GIT_REPO = 'https://github.com/hadjouAmar/Spring-Rest-API-Unit-Test.git'
     }
     
     stages {
