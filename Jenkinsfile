@@ -14,16 +14,16 @@ pipeline {
             }
         }
         
-        stage('Install Dependencies') {
+        stage('Install Dependencies (Step 1)') {
             steps {
-                // Installer les dépendances (exemple avec npm pour un projet Node.js)
+                // Installer les dépendances (exemple avec Maven)
                 sh 'mvn clean install -DskipTests'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Dependencies (Step 2)') {
             steps {
-                // Installer les dépendances avec Maven
+                // Installer les dépendances avec Maven (ou des étapes supplémentaires)
                 sh 'mvn clean install -DskipTests'
             }
         }
